@@ -1,3 +1,4 @@
-fn main() {
-    println!("Hello, world!");
+pub fn main() {
+    println!("Hello, World!");
+    println!("I Am Parthka!")
 }
