@@ -9,6 +9,6 @@ fn main() {
         .build()
         .unwrap()
         .block_on(async {
-            server::run_server([127, 0, 0, 1], 8080).await;
+            server::run_server([127, 0, 0, 1], 3002).await;
         });
 }
