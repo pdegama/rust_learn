@@ -1,8 +1,10 @@
 use std::convert::Infallible;
+use std::fs;
 use std::net::{SocketAddr};
 use std::sync::{Arc, Mutex};
 use hyper::{Body, Request, Response, Server};
 use hyper::service::{make_service_fn, service_fn};
+use std::io::Write;
 
 pub mod webres;
 
@@ -12,6 +14,13 @@ pub async fn run_server(ip_add: [u8; 4], port: u16) {
         //access variable to thread
         *c.lock().unwrap() += 1;
         //println!("{:?}", c);
+        let mut file = fs::OpenOptions::new()
+            .write(true)
+            .append(true)
+            .open("/home/parthka/IdeaProjects/rust_learn/file.txt")
+            .unwrap();
+
+        file.write_all(b"to append\n");
         Ok(Response::new(webres::r1().into()))
     }
 
