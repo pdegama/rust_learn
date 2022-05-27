@@ -14,14 +14,16 @@ pub async fn run_server(ip_add: [u8; 4], port: u16) {
         //access variable to thread
         *c.lock().unwrap() += 1;
         //println!("{:?}", c);
+        let body = hyper::body::to_bytes(_req.into_body()).await;
+        println!("{:?}", body);
         let mut file = fs::OpenOptions::new()
             .write(true)
             .append(true)
-            .open("/home/parthka/IdeaProjects/rust_learn/file.txt")
+            .open("file.txt")
             .unwrap();
 
         file.write_all(b"to append\n");
-        Ok(Response::new(webres::r1().into()))
+        Ok(Response::new(body.unwrap().into()))
     }
 
     // We'll bind to <ip_add>:<port>
